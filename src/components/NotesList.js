@@ -4,13 +4,13 @@ import Note from './Note';
 function NotesList(props) {
   console.log(props);
   const notes = Object.entries(props.notes).map(([id, note]) => {
-    return <Note key={id} id={id} note={note} removeNote={props.removeNote} />;
+    return <Note key={id} id={id} note={note} removeNote={props.removeNote} updateNote={props.updateNote} />;
   });
 
   return (
-    <ul>
+    <div id="notebook">
       {notes}
-    </ul>
+    </div>
   );
 }
 

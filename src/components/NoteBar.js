@@ -13,14 +13,13 @@ class NoteBar extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   onButtonSubmit = () => {
-    console.log(this.props);
     this.props.addNote(this.state.title);
   };
 
   render() {
     return (
-      <div className="notebar">
-        <input className="search" onChange={this.onInputChange} value={this.state.title} />
+      <div id="notebar">
+        <input className="search-bar" onChange={this.onInputChange} value={this.state.title} />
         <input className="search-button" onClick={this.onButtonSubmit} type="button" value="submit" />
       </div>
     );
