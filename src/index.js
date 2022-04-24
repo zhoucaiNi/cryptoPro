@@ -16,15 +16,15 @@ class App extends Component {
     this.state = {
       notes: {
         1: {
-          title: 'id 1',
-          text: 'I is a note',
+          title: 'Note #1',
+          text: 'Note #1 is a note',
           x: 400,
           y: 12,
           zIndex: 26,
         },
         2: {
-          title: 'id 2',
-          text: 'I is a note',
+          title: 'Note #2',
+          text: 'Note #2 is a note',
           x: 400,
           y: 12,
           zIndex: 26,
@@ -47,7 +47,7 @@ class App extends Component {
     const newNote = {
       title: input,
       // eslint-disable-next-line max-len
-      text: 'Confused? This uses spread notation to copy out all the top level keys from the previous notes into the new {} object! However, it only does the top level properties, so each nested object is still a reference rather than clone. Deep cloning is hard and slow if you are doing it manually. Immer makes it speedy and most importantly if you get used to using Immer to produce new state for setState you will never have weird state mutation bugs. ',
+      text: '',
       x: 400,
       y: 12,
       zIndex: 26,

@@ -7,7 +7,9 @@ import '../style.scss';
 class Note extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    this.state = {
+      isEditing: false,
+    };
   }
 
   handleDeleteClick = () => {
@@ -16,14 +18,50 @@ class Note extends Component {
   };
 
   handleDrag = (e, data) => {
-    // console.log(this.props);
-    // console.log(data.x);
-
     const newNotes = { ...this.props.note, x: data.x, y: data.y };
     const newProp = { ...this.props, note: newNotes };
-    // console.log('new note');
+    this.props.updateNote(newProp);
+  };
+
+  handleTextEditClick = (e) => {
+    this.setState({ isEditing: true });
+  };
+
+  handleTextEditFinish = (e) => {
+    this.setState({ isEditing: false });
+  };
+
+  handleTextEdit = (event) => {
+    console.log(this.props);
+    const newNote = { ...this.props.note, text: event.target.value };
+    const newProp = { ...this.props, note: newNote };
+    // this.props.note = newNotes;
+    // console.log((newNotes));
     // console.log(newNotes);
     this.props.updateNote(newProp);
+  };
+
+  editRender = (e) => {
+    if (this.state.isEditing) {
+      return <div className="edit-done-icon"> <i onClick={this.handleTextEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div>;
+    } else {
+      return <div className="edit-icon"> <i onClick={this.handleTextEditClick} className="fa-solid fa-pencil" aria-hidden="true" /></div>;
+    }
+  };
+
+  editText = (event) => {
+    if (this.state.isEditing) {
+      return (
+        <textarea
+          onChange={this.handleTextEdit}
+          className="note-text"
+          value={this.props.note.text}
+          placeholder="Search..."
+        />
+      );
+    } else {
+      return <p className="note-text"> {this.props.note.text} </p>;
+    }
   };
 
   render() {
@@ -43,17 +81,16 @@ class Note extends Component {
           <div className="note-top-bar">
             <div className="note-top-bar-left">
               <p> {this.props.note.title} </p>
-              <i className="fa-solid fa-pencil" />
+              {this.editRender()}
               <div className="move-icon"> <i className=" fa-solid fa-arrows-up-down-left-right" /> </div>
             </div>
             <i onClick={this.handleDeleteClick} className="fa fa-trash-o" aria-hidden="true" />
           </div>
           <div className="note-content">
-            <p> {this.props.note.text} </p>
+            {this.editText()}
           </div>
         </div>
       </Draggable>
-
     );
   }
 }
