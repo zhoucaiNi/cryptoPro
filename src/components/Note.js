@@ -2,7 +2,9 @@
 /* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 import Draggable from 'react-draggable';
+import ReactMarkdown from 'react-markdown';
 import '../style.scss';
+import TextareaAutosize from 'react-textarea-autosize';
 
 class Note extends Component {
   constructor(props) {
@@ -35,9 +37,6 @@ class Note extends Component {
     console.log(this.props);
     const newNote = { ...this.props.note, text: event.target.value };
     const newProp = { ...this.props, note: newNote };
-    // this.props.note = newNotes;
-    // console.log((newNotes));
-    // console.log(newNotes);
     this.props.updateNote(newProp);
   };
 
@@ -52,7 +51,7 @@ class Note extends Component {
   editText = (event) => {
     if (this.state.isEditing) {
       return (
-        <textarea
+        <TextareaAutosize
           onChange={this.handleTextEdit}
           className="note-text"
           value={this.props.note.text}
@@ -60,7 +59,7 @@ class Note extends Component {
         />
       );
     } else {
-      return <p className="note-text"> {this.props.note.text} </p>;
+      return <ReactMarkdown>{this.props.note.text || ''}</ReactMarkdown>;
     }
   };
 

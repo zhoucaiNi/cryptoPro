@@ -1,73 +1,73 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react';
 import { createRoot } from 'react-dom/client';
-import produce, { enableAllPlugins } from 'immer';
+// import produce, { enableAllPlugins } from 'immer';
 import './style.scss';
 import NoteBar from './components/NoteBar';
 import NotesList from './components/NotesList';
+import * as db from './services/datastore';
 
 // enables immer
-enableAllPlugins();
-let id = 2;
+// enableAllPlugins();
+// const id = 2;
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: {
-        1: {
-          title: 'Note #1',
-          text: 'Note #1 is a note',
-          x: 400,
-          y: 12,
-          zIndex: 26,
-        },
-        2: {
-          title: 'Note #2',
-          text: 'Note #2 is a note',
-          x: 400,
-          y: 12,
-          zIndex: 26,
-        },
-      },
+
     };
 
     console.log(this.state);
   }
 
+  componentDidMount() {
+    db.fetchNotes((notes) => {
+      this.setState({ notes });
+    });
+  }
+
   updateNote = (input) => {
-    this.setState(
-      produce((draft) => {
-        draft.notes[input.id] = { ...draft.notes[input.id], ...input.note };
-      }),
-    );
+    console.log(input);
+
+    db.updateNote(input);
+    // this.setState(
+    //   produce((draft) => {
+    //     draft.notes[input.id] = { ...draft.notes[input.id], ...input.note };
+    //   }),
+    // );
   };
 
+  // eslint-disable-next-line class-methods-use-this
   addNote = (input) => {
     const newNote = {
       title: input,
-      // eslint-disable-next-line max-len
-      text: '',
+      text: 'sample text',
       x: 400,
       y: 12,
       zIndex: 26,
     };
+    // this.setState(
+    //   produce((draft) => {
+    //     draft.notes[id] = newNote;
+    //   }),
+    // );
+    // id += 1;
 
-    this.setState(
-      produce((draft) => {
-        draft.notes[id] = newNote;
-      }),
-    );
-    id += 1;
+    db.writeNewNotes(newNote);
   };
 
+  // eslint-disable-next-line class-methods-use-this
   removeNote = (input) => {
     console.log(input);
-    this.setState(
-      produce((draft) => {
-        delete draft.notes[input];
-      }),
-    );
+
+    db.removeNote(input);
+    // this.setState(
+    //   produce((draft) => {
+    //     delete draft.notes[input];
+    //   }),
+    // );
   };
 
   render() {

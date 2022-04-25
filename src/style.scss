@@ -47,42 +47,24 @@ body{
   cursor:pointer;
 }
 
-#notebook{
-  width:75%;
-  // display:flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap:40px;
-}
-
 .note{
-  background-color: white;
-  display:flex;
-  flex-direction: column;
-  gap:5px;
-  width:200px;
-  min-height: 100px;
+  background-color: rgb(255, 255, 255);
   outline: 10px solid rgb(255, 255, 255);
   box-shadow: 0 0 1px #fff inset;
+  resize: both;
+  overflow: auto;
+  min-width: 200px;
+  position:absolute;
 }
 
 .note-content{
-  word-wrap: break-word;
+  // word-wrap: break-word;
 }
 
 .note-top-bar{
   display:flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.edit-icon{
-  display: inline;
-}
-
-.edit-done-icon{
-  display: inline;
 }
 
 .note-top-bar-left{
