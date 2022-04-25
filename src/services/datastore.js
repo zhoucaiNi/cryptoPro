@@ -1,9 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
-// ^ we are using compat notation here as the new firebase 9 api is a mess and i kinda hate it
-// Import the functions you need from the SDKs you need
-// Set the configuration for your app
-// TODO: Replace with your project's config object
+
 const config = {
   apiKey: 'AIzaSyDP6HY57hLqijUasFp8lcP3Tx78l0C8bbw',
   authDomain: 'firenotes-bfa9a.firebaseapp.com',
@@ -15,7 +12,6 @@ firebase.initializeApp(config);
 
 // Get a reference to the database service
 const database = firebase.database();
-// const storage = firebase.storage();
 
 export function writeNewNotes(newNote) {
   const noteId = database.ref('notes').push(newNote);
@@ -36,7 +32,5 @@ export function removeNote(noteId) {
 }
 
 export function updateNote(prop) {
-  console.log('firebase');
-  console.log(prop);
   database.ref('notes').child(prop.id).update(prop.note);
 }
