@@ -11,7 +11,8 @@ class Note extends Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      isEditing: false,
+      isTextEditing: false,
+      isTitleEditing: false,
       // height: '200px',
       // width: '200px',
     };
@@ -43,11 +44,19 @@ class Note extends Component {
   };
 
   handleTextEditClick = (e) => {
-    this.setState({ isEditing: true });
+    this.setState({ isTextEditing: true });
   };
 
   handleTextEditFinish = (e) => {
-    this.setState({ isEditing: false });
+    this.setState({ isTextEditing: false });
+  };
+
+  handleTitleEditClick = (e) => {
+    this.setState({ isTitleEditing: true });
+  };
+
+  handleTitleEditFinish = (e) => {
+    this.setState({ isTitleEditing: false });
   };
 
   handleTextEdit = (event) => {
@@ -57,16 +66,31 @@ class Note extends Component {
     this.props.updateNote(newProp);
   };
 
+  handleTitleEdit = (event) => {
+    // console.log(this.props);
+    const newNote = { ...this.props.note, title: event.target.value };
+    const newProp = { ...this.props, note: newNote };
+    this.props.updateNote(newProp);
+  };
+
   editRender = (e) => {
-    if (this.state.isEditing) {
+    if (this.state.isTextEditing) {
       return <div className="edit-done-icon"> <i onClick={this.handleTextEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div>;
+    } else if (this.state.isTitleEditing) {
+      return <div className="edit-done-icon"> <i onClick={this.handleTitleEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div>;
     } else {
       return <div className="edit-icon"> <i onClick={this.handleTextEditClick} className="fa-solid fa-pencil" aria-hidden="true" /></div>;
     }
   };
 
+  // editTitleRender = (e) => {
+  //   if (this.state.isTitleEditing) {
+  //     return <div className="edit-done-icon"> <i onClick={this.handleTitleEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div>;
+  //   }
+  // };
+
   editText = (event) => {
-    if (this.state.isEditing) {
+    if (this.state.isTextEditing) {
       return (
         <TextareaAutosize
           onChange={this.handleTextEdit}
@@ -77,6 +101,21 @@ class Note extends Component {
       );
     } else {
       return <ReactMarkdown>{this.props.note.text || ''}</ReactMarkdown>;
+    }
+  };
+
+  editTitle = (event) => {
+    if (this.state.isTitleEditing) {
+      return (
+        <TextareaAutosize
+          onChange={this.handleTitleEdit}
+          className="note-title"
+          value={this.props.note.title}
+          placeholder="Search..."
+        />
+      );
+    } else {
+      return <p onClick={this.handleTitleEditClick}>{this.props.note.title} </p>;
     }
   };
 
@@ -96,7 +135,8 @@ class Note extends Component {
         <div style={{ width: this.props.note.width, height: this.props.note.height }} ref={this.myRef} className="note">
           <div className="note-top-bar">
             <div className="note-top-bar-left">
-              <p> {this.props.note.title} </p>
+              {this.editTitle()}
+              {/* {this.editTitleRender()} */}
               {this.editRender()}
               <div className="move-icon"> <i className=" fa-solid fa-arrows-up-down-left-right" /> </div>
             </div>
