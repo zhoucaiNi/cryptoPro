@@ -46,7 +46,7 @@ export function login(email, password) {
     .catch((error) => {
       // const errorCode = error.code;
       console.error(error);
-      alert(error.message);
+      // alert(error.message);
     });
 }
 
@@ -60,7 +60,7 @@ export function register(email, password) {
     })
     .catch((error) => {
       console.error(error);
-      alert(error.message);
+      // alert(error.message);
       // ..
     });
 }

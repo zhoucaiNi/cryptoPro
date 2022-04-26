@@ -6,7 +6,7 @@
 }
 
 body{
-  background-color: rgb(250, 235, 215);
+  background-color:rgb(0, 128, 128)
 }
 
 .note-page{
@@ -17,39 +17,42 @@ body{
   align-items: center;
 }
 
-#notebar{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  gap:10px;
-  padding-top: 20px;
-  width:100%;
-  padding-bottom: 20px;
-}
+// #notebar{
+//   display:flex;
+//   justify-content: center;
+//   align-items: center;
+//   gap:10px;
+//   padding-top: 20px;
+//   width:100%;
+//   padding-bottom: 20px;
+// }
 
 .search-bar{
-  width: 50%;
+  width: 75%;
   height: 30px;
   border:none;
   color:rgb(0, 0, 0);
 }
 
+#note-bar{
+  margin-top: 25px;
+  width: 60%;
+  // height: 75px;
+}
+
 .search-button{
-  background-color: #000000; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  // background-color: #000000; /* Green */
+  // border: none;
+  // color: white;
+  // padding: 10px 10px;
+  // text-align: center;
+  // text-decoration: none;
+  // display: inline-block;
+  // font-size: 16px;
   cursor:pointer;
 }
 
 .note{
-  background-color: rgb(255, 255, 255);
-  outline: 10px solid rgb(255, 255, 255);
-  box-shadow: 0 0 1px #fff inset;
   resize: both;
   overflow: auto;
   position:absolute;
@@ -70,4 +73,23 @@ body{
 
 .note-text{
   width: 100%;
+  position:absolute;
+}
+
+// 98.css format 
+
+.title-bar-controls{
+  gap:5px;
+}
+
+.field-row{
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.window-body{
+  display: flex;
+  align-items: center;
 }

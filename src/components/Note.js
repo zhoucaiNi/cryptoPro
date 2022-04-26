@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import ReactMarkdown from 'react-markdown';
 import '../style.scss';
+import '98.css';
 import TextareaAutosize from 'react-textarea-autosize';
 
 class Note extends Component {
@@ -72,11 +73,11 @@ class Note extends Component {
 
   editRender = (e) => {
     if (this.state.isTextEditing) {
-      return <div className="edit-done-icon"> <i onClick={this.handleTextEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div>;
+      return <button type="button"><div className="edit-done-icon"> <i onClick={this.handleTextEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div></button>;
     } else if (this.state.isTitleEditing) {
-      return <div className="edit-done-icon"> <i onClick={this.handleTitleEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div>;
+      return <button type="button"><div className="edit-done-icon"> <i onClick={this.handleTitleEditFinish} className="fa-solid fa-check" aria-hidden="true" /></div></button>;
     } else {
-      return <div className="edit-icon"> <i onClick={this.handleTextEditClick} className="fa-solid fa-pencil" aria-hidden="true" /></div>;
+      return <button type="button"><div className="edit-icon"> <i onClick={this.handleTextEditClick} className="fa-solid fa-pencil" aria-hidden="true" /></div></button>;
     }
   };
 
@@ -129,15 +130,16 @@ class Note extends Component {
         onDrag={this.handleDrag}
         onStop={this.handleStopDrag}
       >
-        <div style={{ width: this.props.note.width, height: this.props.note.height }} ref={this.myRef} className="note">
-          <div className="note-top-bar">
-            <div className="note-top-bar-left">
+        <div style={{ width: this.props.note.width, height: this.props.note.height }} ref={this.myRef} className="window note">
+          <div className="note-top-bar title-bar">
+            <div className="note-top-bar-left title-bar-text">
               {this.editTitle()}
-              {/* {this.editTitleRender()} */}
-              {this.editRender()}
-              <div className="move-icon"> <i className=" fa-solid fa-arrows-up-down-left-right" /> </div>
             </div>
-            <i onClick={this.handleDeleteClick} className="fa fa-trash-o" aria-hidden="true" />
+            <div className="title-bar-controls">
+              {this.editRender()}
+              <button type="button"><div className="move-icon"> <i className=" fa-solid fa-arrows-up-down-left-right" /> </div> </button>
+              <button type="button"><div className="delete-icon"><i onClick={this.handleDeleteClick} className="fa fa-trash-o" aria-hidden="true" /> </div> </button>
+            </div>
           </div>
           <div className="note-content">
             {this.editText()}

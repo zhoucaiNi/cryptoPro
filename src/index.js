@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import './style.scss';
 import NoteBar from './components/NoteBar';
 import NotesList from './components/NotesList';
+import '98.css';
 import * as db from './services/datastore';
 
 class App extends Component {
@@ -46,6 +47,10 @@ class App extends Component {
       width: '200px',
       zIndex: 0,
     };
+
+    if (newNote.title === '') {
+      newNote.title = 'Note';
+    }
     const { uid } = this.state.user;
     db.writeNewNotes(uid, newNote);
   };
