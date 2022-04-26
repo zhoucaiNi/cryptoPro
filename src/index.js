@@ -5,38 +5,35 @@ import './style.scss';
 import NoteBar from './components/NoteBar';
 import NotesList from './components/NotesList';
 import * as db from './services/datastore';
-// import auth from './services/datastore';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notes: {},
+      notes: [],
       registerEmail: '',
       registerPassword: '',
       loginEmail: '',
       loginPassword: '',
-      user: {},
+      user: null,
     };
   }
 
-  componentDidMount() {
-    // const { uid } = this.state.user;
-    db.fetchNotes((notes) => {
-      this.setState({ notes });
-    });
-
+  async componentDidMount() {
     db.authStateListener((user) => {
-      console.log(user);
       this.setState({ user });
-      console.log(this.state);
+      if (user != null) {
+        db.fetchNotes(user.uid, (notes) => {
+          this.setState({ notes });
+        });
+      }
     });
   }
 
   updateNote = (input) => {
-    // const { uid } = this.state.user;
-    db.updateNote(input);
+    const { uid } = this.state.user;
+    db.updateNote(uid, input);
   };
 
   addNote = (input) => {
@@ -49,22 +46,22 @@ class App extends Component {
       width: '200px',
       zIndex: 0,
     };
-
-    db.writeNewNotes(newNote);
+    const { uid } = this.state.user;
+    db.writeNewNotes(uid, newNote);
   };
 
   // eslint-disable-next-line class-methods-use-this
   removeNote = (input) => {
-    // const { uid } = this.state.user;
-    db.removeNote(input);
+    const { uid } = this.state.user;
+    db.removeNote(uid, input);
   };
 
   register = async () => {
-    console.log(db.register(this.state.registerEmail, this.state.registerPassword));
+    db.register(this.state.registerEmail, this.state.registerPassword);
   };
 
   login = async () => {
-    console.log(db.login(this.state.loginEmail, this.state.loginPassword));
+    db.login(this.state.loginEmail, this.state.loginPassword);
   };
 
   logout = async () => {
@@ -134,56 +131,8 @@ class App extends Component {
 
   render() {
     return (
-
       <div className="App">
         {this.authRender()}
-        {/* <div>
-          <div>
-            <h3> Register User </h3>
-            <input
-              placeholder="Email..."
-              onChange={(event) => {
-                this.setState({ registerEmail: event.target.value });
-              }}
-            />
-            <input
-              placeholder="Password..."
-              onChange={(event) => {
-                this.setState({ registerPassword: event.target.value });
-              }}
-            />
-
-            <button type="button"
-              onClick={() => db.register(this.state.registerEmail, this.state.registerPassword)}
-            > Create User
-            </button>
-          </div>
-
-          <div>
-            <h3> Login </h3>
-            <input
-              placeholder="Email..."
-              onChange={(event) => {
-                this.setState({ loginEmail: event.target.value });
-              }}
-            />
-            <input
-              placeholder="Password..."
-              onChange={(event) => {
-                this.setState({ loginPassword: event.target.value });
-              }}
-            />
-
-            <button type="button"
-              onClick={() => db.login(this.state.loginEmail, this.state.loginPassword)}
-            > Login
-            </button>
-          </div>
-        </div>
-        <div className="note-page">
-          <NoteBar addNote={this.addNote} />
-          <NotesList notes={this.state.notes} removeNote={this.removeNote} updateNote={this.updateNote} />
-        </div> */}
       </div>
 
     );

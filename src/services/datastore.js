@@ -15,74 +15,61 @@ firebase.initializeApp(config);
 const database = firebase.database();
 const auth = firebase.auth();
 
-export function writeNewNotes(newNote) {
-  const noteId = database.ref('notes').push(newNote);
-  database.ref(`notes/${noteId}`).set({
+export function writeNewNotes(uid, newNote) {
+  const noteId = database.ref(`/users/${uid}/notes`).push(newNote);
+  database.ref(`/users/${uid}/notes/${noteId}`).set({
     newNote,
   });
 }
 
-export function fetchNotes(callback) {
-  database.ref('notes').on('value', (snapshot) => {
+export function fetchNotes(uid, callback) {
+  database.ref(`/users/${uid}/notes`).on('value', (snapshot) => {
     const newNoteState = snapshot.val();
     callback(newNoteState);
   });
 }
 
-export function removeNote(noteId) {
-  database.ref('notes').child(noteId).remove();
+export function removeNote(uid, noteId) {
+  database.ref(`/users/${uid}/notes`).child(noteId).remove();
 }
 
-export function updateNote(prop) {
-  database.ref('notes').child(prop.id).update(prop.note);
+export function updateNote(uid, prop) {
+  database.ref(`/users/${uid}/notes`).child(prop.id).update(prop.note);
 }
 
 export function login(email, password) {
   console.log('login-button-clicked');
-  console.log(email);
-  console.log(password);
   auth.signInWithEmailAndPassword(email, password).then((userCredential) => {
     const { user } = userCredential;
-    return ('202', user);
+    return (user);
   })
     .catch((error) => {
       // const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage);
+      console.error(error);
+      alert(error.message);
     });
 }
 
 export function register(email, password) {
-  // const email = 'test@example.com';
-  // const password = 'hunter2';
-  // [START auth_signup_password]
   console.log('register-button-clicked');
-  console.log(email);
-  console.log(password);
+
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      // Signed in
       const { user } = userCredential;
       console.log(user);
-      // ...
     })
     .catch((error) => {
-      // const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage);
+      console.error(error);
+      alert(error.message);
       // ..
     });
-  // [END auth_signup_password]
 }
 
 export function signOut() {
   // [START auth_sign_out]
   firebase.auth().signOut().then(() => {
-    // Sign-out successful.
   }).catch((error) => {
-    // An error happened.
   });
-  // [END auth_sign_out]
 }
 
 export function authStateListener(callback) {
@@ -91,14 +78,13 @@ export function authStateListener(callback) {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const { uid } = user;
-      console.log(uid);
+      console.log('logged in with', user.email);
       callback(user);
       // ...
     } else {
       // User is signed out
-      // ...
-      callback(null);
+      console.log('logged out');
+      callback(user);
     }
   });
   // [END auth_state_listener]

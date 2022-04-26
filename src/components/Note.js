@@ -17,13 +17,15 @@ class Note extends Component {
   }
 
   componentDidMount() {
-    const resizeObserver = new ResizeObserver((entries) => {
-      const newNotes = { ...this.props.note, height: this.myRef.current.style.height, width: this.myRef.current.style.width };
-      const newProp = { ...this.props, note: newNotes };
-      this.props.updateNote(newProp);
-    });
-    // console.log(this.myRef.current);
-    resizeObserver.observe(this.myRef.current);
+    if (this.state.user != null) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const newNotes = { ...this.props.note, height: this.myRef.current?.style.height, width: this.myRef.current?.style.width };
+        const newProp = { ...this.props, note: newNotes };
+        this.props.updateNote(newProp);
+      });
+      // console.log(this.myRef.current);
+      resizeObserver.observe(this.myRef.current);
+    }
     // setTimeout(() => { resizeObserver.observe(this.myRef.current); }, 1000);
   }
 
