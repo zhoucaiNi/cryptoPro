@@ -52,7 +52,6 @@ body{
   box-shadow: 0 0 1px #fff inset;
   resize: both;
   overflow: auto;
-  min-width: 200px;
   position:absolute;
 }
 
@@ -67,4 +66,8 @@ body{
   flex-direction: row;
   justify-content: space-evenly;
   gap:5px;
+}
+
+.note-text{
+  width: 100%;
 }

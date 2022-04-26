@@ -19,7 +19,11 @@ class NoteBar extends Component {
   render() {
     return (
       <div id="notebar">
-        <input className="search-bar" onChange={this.onInputChange} value={this.state.title} />
+        <input className="search-bar"
+          onChange={this.onInputChange}
+          value={this.state.title}
+          placeholder="enter note title"
+        />
         <input className="search-button" onClick={this.onButtonSubmit} type="button" value="submit" />
       </div>
     );

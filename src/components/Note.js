@@ -13,23 +13,18 @@ class Note extends Component {
     this.state = {
       isTextEditing: false,
       isTitleEditing: false,
-      // height: '200px',
-      // width: '200px',
     };
-    // observer.observe(child, { attributes: true });
   }
 
   componentDidMount() {
     const resizeObserver = new ResizeObserver((entries) => {
-      console.log(this.myRef.current.style.height);
-      console.log(this.myRef.current.style.width);
-
       const newNotes = { ...this.props.note, height: this.myRef.current.style.height, width: this.myRef.current.style.width };
       const newProp = { ...this.props, note: newNotes };
       this.props.updateNote(newProp);
     });
     // console.log(this.myRef.current);
-    setTimeout(() => { resizeObserver.observe(this.myRef.current); }, 1000);
+    resizeObserver.observe(this.myRef.current);
+    // setTimeout(() => { resizeObserver.observe(this.myRef.current); }, 1000);
   }
 
   handleDeleteClick = () => {
