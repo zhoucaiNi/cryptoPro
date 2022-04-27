@@ -8,13 +8,15 @@
 
 Struggled initially with managing state but got pretty comfortable with it after the first day. After getting throught the basics of managing states, making functions and calling function, I now have a better ideas of how react worked. 
 
+P.S. To edit the title you have to click on the title. 
+
 ## What Didn't
 
 Have this console error that pops up and says my path to the firebase database is invalid when I try to make a new note. However the data writes fine to the datebase despite this error. Notes are updated and removed without this error.
 
 ## Extra Credit
 
-1. The height and the width of the notes are also recorded and can updated in live time.
+1. The height and the width of the notes are also recorded and can updated in live time. (Resizeable Notes)
 2. CSS (windows 98 themed)
 3. Authentication 
 
