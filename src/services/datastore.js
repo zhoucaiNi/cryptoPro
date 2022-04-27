@@ -48,9 +48,7 @@ export function login(email, password) {
     return (user);
   })
     .catch((error) => {
-      // const errorCode = error.code;
       console.error(error);
-      // alert(error.message);
     });
 }
 
@@ -64,17 +62,16 @@ export function register(email, password) {
     })
     .catch((error) => {
       console.error(error);
-      // alert(error.message);
-      // ..
     });
 }
 
 export function signOut() {
-  // [START auth_sign_out]
   firebase.auth().signOut().then(() => {
   }).catch((error) => {
   });
 }
+
+//  adapted from the docs
 
 export function authStateListener(callback) {
   // [START auth_state_listener]
@@ -86,7 +83,6 @@ export function authStateListener(callback) {
       callback(user);
       // ...
     } else {
-      // User is signed out
       console.log('logged out');
       callback(user);
     }

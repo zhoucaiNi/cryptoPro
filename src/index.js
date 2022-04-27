@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 import './style.scss';
 import NoteBar from './components/NoteBar';
 import NotesList from './components/NotesList';
-// import '98.css';
 import * as db from './services/datastore';
 
 class App extends Component {
