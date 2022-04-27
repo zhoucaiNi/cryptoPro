@@ -26,6 +26,11 @@ module.exports = {
         ],
       },
       {
+        test: /\.woff2?$/i,
+        type: 'asset/resource',
+        dependency: { not: ['url'] },
+      },
+      {
         test: /\.s?css/,
         use: [
           finalCSSLoader,
