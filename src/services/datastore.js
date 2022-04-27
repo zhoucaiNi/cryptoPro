@@ -34,7 +34,11 @@ export function removeNote(uid, noteId) {
 }
 
 export function updateNote(uid, prop) {
-  database.ref(`/users/${uid}/notes`).child(prop.id).update(prop.note);
+  try {
+    database.ref(`/users/${uid}/notes`).child(prop.id).update(prop.note);
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 export function login(email, password) {

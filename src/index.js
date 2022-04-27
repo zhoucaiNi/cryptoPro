@@ -71,6 +71,7 @@ class App extends Component {
 
   logout = async () => {
     db.signOut();
+    this.state.notes = null;
   };
 
   authRender() {
@@ -79,17 +80,21 @@ class App extends Component {
         <div className="note-page">
           <NoteBar addNote={this.addNote} />
           <NotesList notes={this.state?.notes} removeNote={this.removeNote} updateNote={this.updateNote} />
-          <button type="button"
-            onClick={() => this.logout()}
-          > Log Out
-          </button>
+          <div id="footer" className="window">
+            <button type="button"
+              onClick={() => this.logout()}
+            > Log Out
+            </button>
+          </div>
         </div>
       );
     } else {
       return (
-        <div>
-          <div>
-            <h3> Register User </h3>
+        <div id="auth-form">
+          <div className="window">
+            <div className="title-bar">
+              <h3 className="title-bar-text"> Register User </h3>
+            </div>
             <input
               placeholder="Email..."
               onChange={(event) => {
@@ -104,13 +109,15 @@ class App extends Component {
             />
 
             <button type="button"
-              onClick={() => this.register()}
+              onClick={() => this.register(this.state.registerEmail, this.state.registerPassword)}
             > Create User
             </button>
           </div>
 
-          <div>
-            <h3> Login </h3>
+          <div className="window">
+            <div className="title-bar">
+              <h3 className="title-bar-text"> Login </h3>
+            </div>
             <input
               placeholder="Email..."
               onChange={(event) => {
@@ -125,11 +132,12 @@ class App extends Component {
             />
 
             <button type="button"
-              onClick={() => this.login()}
+              onClick={() => this.login(this.state.loginEmail, this.state.loginPassword)}
             > Login
             </button>
           </div>
         </div>
+
       );
     }
   }

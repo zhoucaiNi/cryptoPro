@@ -2,7 +2,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
 }
 
 body{
@@ -15,6 +14,16 @@ body{
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+#auth-form{
+  margin-top:200px;
+  display: flex;
+  justify-content: center;  
+  flex-direction: column;
+  width:100%;
+  align-items: center;
+  gap:200px;
 }
 
 // #notebar{
@@ -37,7 +46,6 @@ body{
 #note-bar{
   margin-top: 25px;
   width: 60%;
-  // height: 75px;
 }
 
 .search-button{
@@ -76,6 +84,15 @@ body{
   position:absolute;
 }
 
+ #footer{
+  position: fixed;
+  padding: 10px 10px 0px 10px;
+  bottom: 0;
+  width: 100%;
+  /* Height of the footer*/ 
+  height: 40px;
+  // background: grey;
+}
 // 98.css format 
 
 .title-bar-controls{
