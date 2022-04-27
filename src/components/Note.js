@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Draggable from 'react-draggable';
 import ReactMarkdown from 'react-markdown';
 import '../style.scss';
-import '98.css';
+// import '98.css';
 import TextareaAutosize from 'react-textarea-autosize';
 
 class Note extends Component {

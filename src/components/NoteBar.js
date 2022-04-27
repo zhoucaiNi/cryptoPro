@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '98.css';
+// import '98.css';
 
 class NoteBar extends Component {
   constructor(props) {
