@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import '98.css';
 
 class NoteBar extends Component {
   constructor(props) {
@@ -18,9 +19,29 @@ class NoteBar extends Component {
 
   render() {
     return (
-      <div id="notebar">
-        <input className="search-bar" onChange={this.onInputChange} value={this.state.title} />
-        <input className="search-button" onClick={this.onButtonSubmit} type="button" value="submit" />
+      <div className="window" id="note-bar">
+        <div className="title-bar">
+          <div className="title-bar-text"> Create New Note </div>
+          <div className="title-bar-controls">
+            <button type="button" aria-label="Minimize" />
+            <button type="button" aria-label="Maximize" />
+            <button type="button" aria-label="Close" />
+          </div>
+        </div>
+
+        <div className="window-body">
+          <div className="field-row">
+            <input
+              id="text17"
+              className="search-bar"
+              onChange={this.onInputChange}
+              type="text"
+              value={this.state.title}
+              placeholder="enter note title"
+            />
+            <button onClick={this.onButtonSubmit} type="button" value="submit"> Create New Note </button>
+          </div>
+        </div>
       </div>
     );
   }
