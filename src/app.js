@@ -153,7 +153,7 @@ class App extends Component {
             earn some profits in the crypto market. Good luck!
           </p>
           <div className="center-column">
-            <h2>Entere your name to take the survey </h2>
+            <h2>Enter your name to take the survey </h2>
             {/* here our from has calls a method on submit */}
             <form onSubmit={this.userSubmit}>
               {/* our input box is refrenced by 'name' */}
