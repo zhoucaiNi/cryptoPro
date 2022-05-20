@@ -11,8 +11,10 @@ const postcssPresets = require('postcss-preset-env');
 
 module.exports = {
   mode: env,
+  output: { publicPath: '/' },
   devServer: {
     hot: true,
+    historyApiFallback: true,
   },
   entry: ['./src'], // this is where our app lives
   devtool: 'source-map', // this enables debugging with source in chrome devtools
