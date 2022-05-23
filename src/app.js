@@ -7,6 +7,7 @@ import 'firebase/compat/database';
 import 'firebase/compat/auth';
 // import { data } from 'autoprefixer';
 const uuid = require('uuid');
+const surveyData = require('./survey.json');
 
 const config = {
   apiKey: 'AIzaSyCJoYCbX2GXY38yJlXx3mob1ynfm_BCqyw',
@@ -35,6 +36,8 @@ class App extends Component {
         answer1: '',
         answer2: '',
         answer3: '',
+        answer4: '',
+        feedbackReq: '',
       },
       // if the values have been submitted to firebase, starts as false
       submitted: false,
@@ -71,17 +74,31 @@ class App extends Component {
   // changes the state of answers when the radio buttons are clicked
   answerSelected(event) {
     const { answers } = this.state;
+
     // changes state of answer1
     if (event.target.name === 'answer1') {
       answers.answer1 = event.target.value;
       console.log(answers.answer1);
+
       // changes state of answer2
     } else if (event.target.name === 'answer2') {
       answers.answer2 = event.target.value;
       console.log(answers.answer2);
+
+      // changes state of answer3
     } else if (event.target.name === 'answer3') {
       answers.answer3 = event.target.value;
       console.log(answers.answer3);
+
+      // changes state of answer4
+    } else if (event.target.name === 'answer4') {
+      answers.answer4 = event.target.value;
+      console.log(answers.answer4);
+
+      // feedback request
+    } else if (event.target.name === 'feedbackReq') {
+      answers.feedbackReq = event.target.value;
+      console.log(answers.feedbackReq);
     }
     this.setState({ answers });
   }
@@ -93,13 +110,15 @@ class App extends Component {
     // sets state of submitted to true
     this.setState({ submitted: true });
     // if user does not want to leave feedback
-    if (this.state.answers.answer3 === 'no') {
+    if (this.state.answers.feedbackReq === 'no') {
       // sends answers to fb
       firebase.database().ref(`survey/${this.state.uid}`).set({
         userName: this.state.userName,
         answer1: this.state.answers.answer1,
         answer2: this.state.answers.answer2,
         answer3: this.state.answers.answer3,
+        answer4: this.state.answers.answer4,
+        feedbackReq: this.state.answers.feedbackReq,
         feedback: this.state.feedback,
       });
     }
@@ -124,6 +143,8 @@ class App extends Component {
       answer1: this.state.answers.answer1,
       answer2: this.state.answers.answer2,
       answer3: this.state.answers.answer3,
+      answer4: this.state.answers.answer4,
+      feedbackReq: this.state.answers.feedbackReq,
       feedback: this.state.feedback,
     });
   }
@@ -143,14 +164,7 @@ class App extends Component {
       userName = (
         <div className="survey">
           <h2> Crypto Survey </h2>
-          <p> Welcome to Crypto Pro! This program will take you through the basics of
-            investing in cryptocurrency (and other) markets. While this course will provide you with
-            the necessary skills to buy and trade cryptocurrencies on this platform and others, this
-            course should BY NO MEANS seen as a comprehensive or adequate introduction to cryptocurrency.
-            We want to stress that as a retail investor, you are severely outmatched in the crypto market and
-            should never expect to see the same gains as professional investors. With that being said, we are
-            confident this course offers you the investing fundamentals you need to protect your assets and hopefully
-            earn some profits in the crypto market. Good luck!
+          <p> {surveyData.Intro}
           </p>
           <div className="center-column">
             <h2>Enter your name to take the survey </h2>
@@ -170,43 +184,60 @@ class App extends Component {
       // shows the state of userName
       userName = <h2>Welcome {this.state.userName}!</h2>;
       // updating questions
+
       questions = (
         <div className="survey">
           {/* <h3>Questions</h3> */}
           <form onSubmit={this.questionsSubmit}>
             <div>
               <label>
-                You are interested in opening up your first cryptocurrency portfolio! Congratulations!
-                There are two coins available for your beginning investment. Your first option,
-                Gumo Coin, has an expected rate of return of 150%, as well as average holding periods
-                of 60 days. However, the second, Titus Coin, has an expected rate of return of 250% with
-                average holding periods of only 15 days.
-                For your first, risk-concerned investment, should you invest in Gumo or Titus coin?
+                {surveyData.questions.at(0).question_text}
               </label>
               <br />
               <br />
               {/* name is equal to answer1 */}
-              <input type="radio" name="answer1" value="Gumo" onChange={this.answerSelected} />Gumo Coin
+              <input type="radio" name="answer1" value="Gumo Coin" onChange={this.answerSelected} />Gumo Coin
               <br />
-              <input type="radio" name="answer1" value="Titus" onChange={this.answerSelected} />Titus Coin
+              <input type="radio" name="answer1" value="Titus Coin" onChange={this.answerSelected} />Titus Coin
             </div>
             <br />
 
             <div>
               <label>
-                You are interested in opening up your first cryptocurrency portfolio! Congratulations!
-                There are two coins available for your beginning investment. Your first option,
-                Gumo Coin, has an expected rate of return of 150%, as well as average holding periods
-                of 60 days. However, the second, Titus Coin, has an expected rate of return of 250% with
-                average holding periods of only 15 days.
-                For your first, risk-concerned investment, should you invest in Gumo or Titus coin?
+                {surveyData.questions.at(1).question_text}
               </label>
               <br />
               <br />
-              {/* name is equal to answer1 */}
-              <input type="radio" name="answer2" value="A" onChange={this.answerSelected} />Investor A
+              {/* name is equal to answer2 */}
+              <input type="radio" name="answer2" value="A" onChange={this.answerSelected} />Coin A
               <br />
-              <input type="radio" name="answer2" value="B" onChange={this.answerSelected} />Investor B
+              <input type="radio" name="answer2" value="B" onChange={this.answerSelected} />Coin B
+            </div>
+            <br />
+
+            <div>
+              <label>
+                {surveyData.questions.at(2).question_text}
+              </label>
+              <br />
+              <br />
+              {/* name is equal to answer3 */}
+              <input type="radio" name="answer3" value="A" onChange={this.answerSelected} />Investor A
+              <br />
+              <input type="radio" name="answer3" value="B" onChange={this.answerSelected} />Investor B
+            </div>
+            <br />
+
+            <div>
+              <label>
+                {surveyData.questions.at(3).question_text}
+              </label>
+              <br />
+              <br />
+              {/* name is equal to answer4 */}
+              <input type="radio" name="answer4" value="A" onChange={this.answerSelected} />Investor A
+              <br />
+              <input type="radio" name="answer4" value="B" onChange={this.answerSelected} />Investor B
             </div>
             <br />
 
@@ -216,10 +247,10 @@ class App extends Component {
               </label>
               <br />
               <br />
-              {/* name is equal to answer2 */}
-              <input type="radio" name="answer3" value="yes" onChange={this.answerSelected} />Yes, I would!
+              {/* name is equal to feedbackReq */}
+              <input type="radio" name="feedbackReq" value="yes" onChange={this.answerSelected} />Yes, I would!
               <br />
-              <input type="radio" name="answer3" value="no" onChange={this.answerSelected} />No, thank you.
+              <input type="radio" name="feedbackReq" value="no" onChange={this.answerSelected} />No, thank you.
             </div>
             <br />
             <input type="submit" value="submit" className="submitBtn" />
@@ -227,7 +258,7 @@ class App extends Component {
         </div>
       );
       // if we submitted the first form and the user said they owuld like to leave feedback
-    } else if (this.state.submitted === true && this.state.answers.answer3 === 'yes' && this.state.feedbackSubmit === false) {
+    } else if (this.state.submitted === true && this.state.answers.feedbackReq === 'yes' && this.state.feedbackSubmit === false) {
       feedback = (
         <div className="survey">
           <h3>Feedback</h3>
@@ -246,10 +277,10 @@ class App extends Component {
         </div>
       );
       // if the user submitted the questions and did not want to leave feedback
-    } else if (this.state.submitted === true && this.state.answers.answer3 === 'no' && this.state.feedbackSubmit === false) {
+    } else if (this.state.submitted === true && this.state.answers.feedbackReq === 'no' && this.state.feedbackSubmit === false) {
       userName = <h2>Thanks again {this.state.userName}! Your responses have been recorded</h2>;
       // if the user submitted the questions and submitted feedback
-    } else if (this.state.submitted === true && this.state.answers.answer3 === 'yes' && this.state.feedbackSubmit === true) {
+    } else if (this.state.submitted === true && this.state.answers.feedbackReq === 'yes' && this.state.feedbackSubmit === true) {
       userName = <h2>Thanks for the feedback {this.state.userName}!</h2>;
     }
     console.log(this.state.userName);

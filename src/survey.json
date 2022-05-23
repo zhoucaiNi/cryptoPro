@@ -1,0 +1,60 @@
+{
+    "Intro": "Welcome to Crypto Pro! This program will take you through the basics of investing in cryptocurrency (and other) markets. While this course will provide you with the necessary skills to buy and trade cryptocurrencies on this platform and others, this course should BY NO MEANS seen as a comprehensive or adequate introduction to cryptocurrency. We want to stress that as a retail investor, you are severely outmatched in the crypto market and should never expect to see the same gains as professional investors. With that being said, we are confident this course offers you the investing fundamentals you need to protect your assets and hopefully earn some profits in the crypto market. Good luck!",
+    "questions": [{
+            "question_name": "question1",
+            "question_text": "You are interested in opening up your first cryptocurrency portfolio! Congratulations! There are two coins available for your beginning investment. Your first option, Gumo Coin, has an expected rate of return of 150%, as well as average holding periods of 60 days. However, the second, Titus Coin, has an expected rate of return of 250% with average holding periods of only 15 days. For your first, risk-concerned investment, should you invest in Gumo or Titus coin?",
+            "answers": [{
+                    "text": "Gumo Coin"
+                },
+                {
+                    "text": "Titus Coin"
+                }
+            ]
+        }, {
+            "question_name": "question2",
+            "question_text": "This quarter, coin A has expected returns of 200% while coin B has expected returns of 150%.  As a risk-concerned investor, which coin should you invest in?",
+            "question_img_url": "img/galaxy.jpeg",
+            "answers": [{
+                    "text": "Coin A"
+                },
+                {
+                    "text": "Coin B"
+                }
+            ]
+        },
+        {
+            "question_name": "question3",
+            "question_text": "Investor A’s portfolio comprises exclusively one cryptocurrency while Investor B’s portfolio comprises over 20 currencies. Which portfolio is more likely to lose value in the long run?",
+            "question_img_url": "img/study.jpeg",
+            "answers": [{
+                    "text": "A"
+                },
+                {
+                    "text": "B"
+                }
+            ]
+        },
+{
+            "question_name": "question4",
+            "question_text": "Investor A makes over 10 trades a day while Investor B only makes a trade every few weeks. All else equal (quality of trades), which investor is more likely to profit in the long run?",
+            "answers": [{
+                    "text": "A"
+                },
+                {
+                    "text": "B"
+                }
+            ]
+        },
+{
+            "question_name": "responseQuestion",
+            "question_text": "Drink of Choice?",
+            "answers": [{
+                    "text": "Wine"
+                },
+                {
+                    "text": "Keystone"
+                }
+            ]
+        }
+    ]
+}
